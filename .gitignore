@@ -1,1 +1,8 @@
 node_modules/
+Terraform/my-key
+Terraform/*.pem
+Terraform/.terraform/
+Terraform/.terraform.lock.hcl
+Terraform/terraform.tfstate
+Terraform/terraform.tfstate.backup
+ 
