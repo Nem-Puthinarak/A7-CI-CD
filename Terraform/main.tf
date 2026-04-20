@@ -29,7 +29,7 @@ resource "aws_security_group" "foodexpress_sg" {
 resource "aws_instance" "foodexpress_ec2" {
   ami                         = "ami-0c02fb55956c7d316"
   instance_type               = "t3.micro"
-  key_name                    = "A7777"
+  key_name                    = "A7111"
   vpc_security_group_ids      = [aws_security_group.foodexpress_sg.id]
   associate_public_ip_address = true
 

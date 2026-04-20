@@ -17,7 +17,7 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            if [ -d "/home/ec2-user/A7-CI-CD" ]; then
+            if [ -d "/home/ec2-user/A7-CI-CDte" ]; then
               cd /home/ec2-user/A7-CI-CD
               git pull origin main
             else
