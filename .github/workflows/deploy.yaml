@@ -1,0 +1,37 @@
+name: FoodExpress CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            if [ -d "/home/ec2-user/A7-CI-CD_Pipeline" ]; then
+              cd /home/ec2-user/A7-CI-CD_Pipeline
+              git pull origin main
+            else
+              git clone https://github.com/Nem-Puthinarak/A7-CI-CD.git /home/ec2-user/A7-CI-CD_Pipeline
+              cd /home/ec2-user/A7-CI-CD_Pipeline
+            fi
+
+            cd /home/ec2-user/A7-CI-CD_Pipeline/API
+            docker build -t foodexpress-api .
+            docker stop foodexpress-app || true
+            docker rm foodexpress-app || true
+            docker run -d \
+              --name foodexpress-app \
+              --restart unless-stopped \
+              -p 80:3000 \
+              foodexpress-api
+            docker ps
