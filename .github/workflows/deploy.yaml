@@ -17,15 +17,15 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            if [ -d "/home/ec2-user/A7-CI-CD_Pipeline" ]; then
-              cd /home/ec2-user/A7-CI-CD_Pipeline
+            if [ -d "/home/ec2-user/A7-CI-CD" ]; then
+              cd /home/ec2-user/A7-CI-CD
               git pull origin main
             else
-              git clone https://github.com/Nem-Puthinarak/A7-CI-CD.git /home/ec2-user/A7-CI-CD_Pipeline
-              cd /home/ec2-user/A7-CI-CD_Pipeline
+              git clone https://github.com/Nem-Puthinarak/A7-CI-CD.git /home/ec2-user/A7-CI-CD
+              cd /home/ec2-user/A7-CI-CD
             fi
 
-            cd /home/ec2-user/A7-CI-CD_Pipeline/API
+            cd /home/ec2-user/A7-CI-CD/API
             docker build -t foodexpress-api .
             docker stop foodexpress-app || true
             docker rm foodexpress-app || true
